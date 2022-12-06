@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <p>aaa</p>
+    {{range $v := .uploadedimage}}
+    <div>
+        <label>{{$v.Name}}</label>
+        <div>
+            <p><img src="../data/hatsunetenti_test.jpeg"></p>
+        </div>
+    </div>
+    {{end}}
+</body>
+</html>

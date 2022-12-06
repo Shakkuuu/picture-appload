@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,6 +17,7 @@ func main() {
 
 	r.GET("/", index)
 	r.POST("/upload", upload)
+	r.GET("imagelist", imagelist)
 
 	r.Run()
 }
@@ -32,4 +34,9 @@ func upload(c *gin.Context) {
 	c.SaveUploadedFile(image, "data/"+image.Filename)
 
 	c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded", image.Filename))
+}
+
+func imagelist(c *gin.Context) {
+	image, _ := os.ReadDir("data")
+	c.HTML(200, "imageview.html", gin.H{"uploadedimage": image})
 }
