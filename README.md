@@ -2,11 +2,11 @@
 
 ## 使い方
 
-1. localサーバを起動
+1. localサーバを起動  
 ``` go run main.go ```
 2. ブラウザで 127.0.0.1:8080 にアクセス
 3. ファイルを選択を押してアップロードしたい画像を選択(一部対応していない拡張子があります。)
-4. 送信を押してアップロード!
+4. 送信を押してアップロード!!
 5. (ファイル名)uploaded!!と表示されるので 戻る から初めの画面に戻る
 6. image list から一覧を見れる
 
@@ -24,7 +24,7 @@
 * go: version go1.19.3 darwin/arm64
 * gin: github.com/gin-gonic/gin v1.8.1
 * ginのインストール
-go mod の初期化
+go mod の初期化  
 ``` go mod init アプリケーションのフォルダ名 ```
-gin パッケージの取得
+gin パッケージの取得  
 ``` go get -u github.com/gin-gonic/gin ```
