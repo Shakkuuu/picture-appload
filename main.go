@@ -14,6 +14,7 @@ func main() {
 
 	r := gin.Default()
 	r.LoadHTMLGlob("views/*.html")
+	r.Static("data", "./data")
 
 	r.GET("/", index)
 	r.POST("/upload", upload)
