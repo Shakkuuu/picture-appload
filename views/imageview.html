@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="utf-8" />
+    <title>アップロードした画像一覧</title>
+</head>
 <body>
-    <p>aaa</p>
+    <p>アップロードした画像一覧</p>
     {{range $v := .uploadedimage}}
     <div>
         <label>{{$v.Name}}</label>

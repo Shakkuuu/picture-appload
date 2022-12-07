@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
+	_ "net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -33,8 +33,9 @@ func upload(c *gin.Context) {
 	log.Println(image.Filename)
 
 	c.SaveUploadedFile(image, "data/"+image.Filename)
-
-	c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded", image.Filename))
+	filename := image.Filename
+	c.HTML(200, "uploaded_check.html", gin.H{"filename": filename})
+	// c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded", image.Filename))
 }
 
 func imagelist(c *gin.Context) {
