@@ -25,6 +25,6 @@
 * gin: github.com/gin-gonic/gin v1.8.1
 * ginのインストール
 go mod の初期化  
-``` go mod init アプリケーションのフォルダ名 ```
+``` go mod init アプリケーションのフォルダ名 ```  
 gin パッケージの取得  
 ``` go get -u github.com/gin-gonic/gin ```
