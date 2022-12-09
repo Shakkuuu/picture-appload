@@ -3,9 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	_ "net/http"
 	"os"
-	_ "strconv"
 
 	"github.com/gin-gonic/gin"
 )
