@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 )
@@ -40,8 +41,23 @@ func upload(c *gin.Context) {
 		c.HTML(200, "error.html", gin.H{"err": err})
 	}
 	filename := image.Filename
-	c.HTML(200, "uploaded_check.html", gin.H{"filename": filename})
-	// c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded", image.Filename))
+
+	ex := filepath.Ext(filename)
+
+	i := c.PostForm("id")
+	if i == "" {
+		id := filename
+		c.HTML(200, "uploaded_check.html", gin.H{"filename": filename, "id": id})
+		return
+	}
+
+	id := i + ex
+
+	if err := os.Rename("data/"+image.Filename, "data/"+id); err != nil {
+		c.HTML(200, "error.html", gin.H{"err": err})
+	}
+
+	c.HTML(200, "uploaded_check.html", gin.H{"filename": filename, "id": id})
 }
 
 func imagelist(c *gin.Context) {
@@ -54,20 +70,12 @@ func imagelist(c *gin.Context) {
 
 func deletecheck(c *gin.Context) {
 	d := c.Param("id")
-	// id, err := strconv.Atoi(d)
-	// if err != nil {
-	// 	panic("ERROR")
-	// }
 
 	c.HTML(200, "delete.html", gin.H{"id": d})
 }
 
 func imagedelete(c *gin.Context) {
 	d := c.Param("id")
-	// id, err := strconv.Atoi(d)
-	// if err != nil {
-	// 	panic("ERROR")
-	// }
 
 	if err := os.Remove("data/" + d); err != nil {
 		c.HTML(200, "error.html", gin.H{"err": err})
