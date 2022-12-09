@@ -5,6 +5,7 @@ import (
 	"log"
 	_ "net/http"
 	"os"
+	_ "strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,7 +19,9 @@ func main() {
 
 	r.GET("/", index)
 	r.POST("/upload", upload)
-	r.GET("imagelist", imagelist)
+	r.GET("/imagelist", imagelist)
+	r.GET("/deletecheck/:id", deletecheck)
+	r.POST("/imagedelete/:id", imagedelete)
 
 	r.Run()
 }
@@ -41,4 +44,26 @@ func upload(c *gin.Context) {
 func imagelist(c *gin.Context) {
 	image, _ := os.ReadDir("data")
 	c.HTML(200, "imageview.html", gin.H{"uploadedimage": image})
+}
+
+func deletecheck(c *gin.Context) {
+	d := c.Param("id")
+	// id, err := strconv.Atoi(d)
+	// if err != nil {
+	// 	panic("ERROR")
+	// }
+
+	c.HTML(200, "delete.html", gin.H{"id": d})
+}
+
+func imagedelete(c *gin.Context) {
+	d := c.Param("id")
+	// id, err := strconv.Atoi(d)
+	// if err != nil {
+	// 	panic("ERROR")
+	// }
+
+	os.Remove("data/" + d)
+	aaa := d + "は削除されました。"
+	c.HTML(200, "index.html", gin.H{"aaa": aaa})
 }
