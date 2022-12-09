@@ -32,17 +32,25 @@ func index(c *gin.Context) {
 }
 
 func upload(c *gin.Context) {
-	image, _ := c.FormFile("image")
+	image, err := c.FormFile("image")
+	if err != nil {
+		c.HTML(200, "error.html", gin.H{"err": err})
+	}
 	log.Println(image.Filename)
 
-	c.SaveUploadedFile(image, "data/"+image.Filename)
+	if err := c.SaveUploadedFile(image, "data/"+image.Filename); err != nil {
+		c.HTML(200, "error.html", gin.H{"err": err})
+	}
 	filename := image.Filename
 	c.HTML(200, "uploaded_check.html", gin.H{"filename": filename})
 	// c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded", image.Filename))
 }
 
 func imagelist(c *gin.Context) {
-	image, _ := os.ReadDir("data")
+	image, err := os.ReadDir("data")
+	if err != nil {
+		c.HTML(200, "error.html", gin.H{"err": err})
+	}
 	c.HTML(200, "imageview.html", gin.H{"uploadedimage": image})
 }
 
@@ -63,7 +71,9 @@ func imagedelete(c *gin.Context) {
 	// 	panic("ERROR")
 	// }
 
-	os.Remove("data/" + d)
+	if err := os.Remove("data/" + d); err != nil {
+		c.HTML(200, "error.html", gin.H{"err": err})
+	}
 	aaa := d + "は削除されました。"
 	c.HTML(200, "index.html", gin.H{"aaa": aaa})
 }
