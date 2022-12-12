@@ -5,15 +5,29 @@
     <title>アップロードした画像一覧</title>
 </head>
 <body>
-    <p>アップロードした画像一覧</p>
-    {{range $v := .uploadedimage}}
-    <div>
-        <label>{{$v.Name}}</label>
+    <h1>アップロードした画像一覧</h1>
+
+    <p>画像検索</p>
+    <form action="/findimage" method="GET">
+        <input type="text" name="find">
+        <input type="submit">
+    </form>
+    {{if .find}}
+        <h2>検索結果</h2>
+        <p>{{.find}}</p>
+        <p><img src="../data/{{.find}}" width="40%"/></p>
+        <!-- <label><a href="/deletecheck/{{.find}}">削除</a></label> -->
+    {{else}}
+        <h2>一覧</h2>
+        {{range $v := .uploadedimage}}
         <div>
-            <p><img src="../data/{{$v.Name}}" width="40%"/></p>
-            <label><a href="/deletecheck/{{$v.Name}}">削除</a></label>
+            <label>{{$v.Name}}</label>
+            <div>
+                <p><img src="../data/{{$v.Name}}" width="40%"/></p>
+                <label><a href="/deletecheck/{{$v.Name}}">削除</a></label>
+            </div>
         </div>
-    </div>
+        {{end}}
     {{end}}
     <p><a href="/">戻る</a></p>
 </body>

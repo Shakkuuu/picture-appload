@@ -21,6 +21,7 @@ func main() {
 	r.GET("/imagelist", imagelist)
 	r.GET("/deletecheck/:id", deletecheck)
 	r.POST("/imagedelete/:id", imagedelete)
+	r.GET("/findimage", findimage)
 
 	r.Run()
 }
@@ -83,3 +84,11 @@ func imagedelete(c *gin.Context) {
 	aaa := d + "は削除されました。"
 	c.HTML(200, "index.html", gin.H{"aaa": aaa})
 }
+
+func findimage(c *gin.Context) {
+	f := c.Query("find")
+
+	c.HTML(200, "imageview.html", gin.H{"find": f})
+}
+
+//ファイル複数アップロード、画像表示の見栄え、UI、
