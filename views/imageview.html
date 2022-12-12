@@ -16,7 +16,9 @@
         <h2>検索結果</h2>
         <p>{{.find}}</p>
         <p><img src="../data/{{.find}}" width="40%"/></p>
-        <!-- <label><a href="/deletecheck/{{.find}}">削除</a></label> -->
+        <label><a href="/deletecheck/{{.find}}">削除</a></label>
+
+        <p><a href="/imagelist">image list</a></p>
     {{else}}
         <h2>一覧</h2>
         {{range $v := .uploadedimage}}
